@@ -6,3 +6,4 @@
 
 # ocaml
 _build
+*.opam
