@@ -1,4 +1,8 @@
+# scala
 .bsp
 .metals
 .scala-build
 .vscode
+
+# ocaml
+_build
