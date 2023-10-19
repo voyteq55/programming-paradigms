@@ -25,11 +25,12 @@ let test2_3 = sumProd (5, 2) = (0, 1)
 let test2_4 = sumProd (-5, 6) = (0, 0)
 
 let test3_1 = isPerfect 1 = false
-let test3_2 = isPerfect 4 = false
-let test3_3 = isPerfect 6 = true
-let test3_4 = isPerfect 12 = false
-let test3_5 = isPerfect 28 = true
-let test3_6 = isPerfect 64 = false
-let test3_7 = isPerfect 496 = true
-let test3_8 = isPerfect 4064 = false
-let test3_9 = isPerfect 8128 = true
+let test3_2 = isPerfect 2 = false
+let test3_3 = isPerfect 4 = false
+let test3_4 = isPerfect 6 = true
+let test3_5 = isPerfect 12 = false
+let test3_6 = isPerfect 28 = true
+let test3_7 = isPerfect 64 = false
+let test3_8 = isPerfect 496 = true
+let test3_9 = isPerfect 4064 = false
+let test3_10 = isPerfect 8128 = true
