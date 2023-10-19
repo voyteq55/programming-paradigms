@@ -14,6 +14,11 @@ let rec sumOfDivisors = function (n, currentDivisor) ->
 
 let isPerfect = function n -> if n = 0 then false else n = sumOfDivisors (n, 2)
 
+let rec insert = function (list, element, index) ->
+  if list = [] then [element] else
+    if index <= 0 then element :: list else
+      List.hd list :: insert (List.tl list, element, index - 1)
+
 (* TESTS *)
 
 let test1_1 = reverse4 (1, 2, 3, 4) = (4, 3, 2, 1)
@@ -37,3 +42,13 @@ let test3_10 = isPerfect 8128 = true
 let test3_11 = isPerfect (-1) = false
 let test3_12 = isPerfect (-6) = false
 let test3_13 = isPerfect 0 = false
+
+let test4_1 = insert ([1; 2; 3; 4], 100, -4) = [100; 1; 2; 3; 4]
+let test4_2 = insert ([1; 2; 3; 4], 100, 0) = [100; 1; 2; 3; 4]
+let test4_3 = insert ([1; 2; 3; 4], 100, 1) = [1; 100; 2; 3; 4]
+let test4_4 = insert ([1; 2; 3; 4], 100, 3) = [1; 2; 3; 100; 4]
+let test4_5 = insert ([1; 2; 3; 4], 100, 4) = [1; 2; 3; 4; 100]
+let test4_6 = insert ([1; 2; 3; 4], 100, 10) = [1; 2; 3; 4; 100]
+let test4_7 = insert ([], 100, 0) = [100]
+let test4_8 = insert ([], 100, 15) = [100]
+let test4_9 = insert ([], 100, -15) = [100]

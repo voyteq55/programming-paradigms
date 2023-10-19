@@ -9,11 +9,16 @@ def sumProd(s: Int, e: Int): (Int, Int) =
 def sumOfDivisors(n: Int, currentDivisor: Int): Int =
     if n <= 1 then 0 else
     if currentDivisor * currentDivisor > n then 1 else // adding 1 because dividing starts from 2, every number is divisible by 1
-      sumOfDivisors (n, currentDivisor + 1) +
-      (if n % currentDivisor != 0 then 0 else 
-        currentDivisor + (if currentDivisor * currentDivisor < n then n / currentDivisor else 0))
+        sumOfDivisors (n, currentDivisor + 1) +
+        (if n % currentDivisor != 0 then 0 else 
+            currentDivisor + (if currentDivisor * currentDivisor < n then n / currentDivisor else 0))
 
 def isPerfect(n: Int) = if n == 0 then false else n == sumOfDivisors(n, 2)
+
+def insert[T](list: List[T], element: T, index: Int): List[T] =
+    if list == List() then List(element) else
+        if index <= 0 then element :: list else
+            list.head :: insert (list.tail, element, index - 1)
 
 @main def main = {
     println("TESTS PASSING:")
@@ -39,4 +44,14 @@ def isPerfect(n: Int) = if n == 0 then false else n == sumOfDivisors(n, 2)
     println(isPerfect(-1) == false)
     println(isPerfect(-6) == false)
     println(isPerfect(0) == false)
+
+    println(insert(List(1, 2, 3, 4), 100, -4) == List(100, 1, 2, 3, 4))
+    println(insert(List(1, 2, 3, 4), 100, 0) == List(100, 1, 2, 3, 4))
+    println(insert(List(1, 2, 3, 4), 100, 1) == List(1, 100, 2, 3, 4))
+    println(insert(List(1, 2, 3, 4), 100, 3) == List(1, 2, 3, 100, 4))
+    println(insert(List(1, 2, 3, 4), 100, 4) == List(1, 2, 3, 4, 100))
+    println(insert(List(1, 2, 3, 4), 100, 10) == List(1, 2, 3, 4, 100))
+    println(insert(List(), 100, 0) == List(100))
+    println(insert(List(), 100, 15) == List(100))
+    println(insert(List(), 100, -15) == List(100))
 }
