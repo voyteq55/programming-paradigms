@@ -34,3 +34,6 @@ let test3_7 = isPerfect 64 = false
 let test3_8 = isPerfect 496 = true
 let test3_9 = isPerfect 4064 = false
 let test3_10 = isPerfect 8128 = true
+let test3_11 = isPerfect (-1) = false
+let test3_12 = isPerfect (-6) = false
+let test3_13 = isPerfect 0 = false

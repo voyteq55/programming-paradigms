@@ -36,4 +36,7 @@ def isPerfect(n: Int) = if n == 0 then false else n == sumOfDivisors(n, 2)
     println(isPerfect(496) == true)
     println(isPerfect(4064) == false)
     println(isPerfect(8128) == true)
+    println(isPerfect(-1) == false)
+    println(isPerfect(-6) == false)
+    println(isPerfect(0) == false)
 }
