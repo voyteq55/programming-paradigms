@@ -1,15 +1,16 @@
-open Printf
-
-let rec flatten l =
-  match l with
-  | [] -> []
-  | h :: t -> h @ flatten t;;
+let rec flatten xss =
+  if xss = [] then [] else
+    List.hd xss @ flatten (List.tl xss)
 
 let rec count (element, my_list) =
-  match my_list with
-  | [] -> 0
-  | x :: tail -> (if x = element then 1 else 0) + count (element, tail);;
+  if my_list = [] then 0 else
+    (if element = List.hd my_list then 1 else 0) + count (element, List.tl my_list)
 
-let () = List.iter (printf "%d ") (flatten [[1; 2]; [3; 4]])
-let () = List.iter (printf "%d ") (flatten [[];[];[1];[2; 3; 5]])
-let () = print_int (count ("a", ["1"; "a"; "234"; "aaa"; "a"]))
+let test1_1 = flatten [] = []
+let test1_2 = flatten [[]; []] = []
+let test1_3 = flatten [[1; 2]; [3; 4]] = [1; 2; 3; 4]
+let test1_4 = flatten [[];[];[1];[2; 3; 5]] = [1; 2; 3; 5]
+
+let test2_1 = count (3, [1; 2; 3; 4]) = 1
+let test2_2 = count ([[]], [[]; []; [[[]]]; [[]]; [[]]]) = 2
+let test2_3 = count ("a", ["a"; "A"; "a"; "aaaaaaa"; "b"; "a"]) = 3
