@@ -14,6 +14,16 @@ val sqrList: List[Int] => List[Int] = (list: List[Int]) =>
   if list == List() then List() else
     list.head * list.head :: sqrList(list.tail)
 
+def isPalindrome[A](xs: List[A]): Boolean = {
+  def reverse[A](xs: List[A]): List[A] = {
+    def reverseRecursive[A](reversedList: List[A], originalList: List[A]): List[A] =
+      if originalList.isEmpty then reversedList else
+        reverseRecursive(originalList.head :: reversedList, originalList.tail)
+    reverseRecursive(List(), xs)
+  }
+  xs == reverse(xs)
+}
+
 @main def ex01: Unit =
   def assertEquals[T](actualResult: T, expectedResult: T) = {
     if actualResult == expectedResult then print(s"TEST PASSED! ") else print(s"!!! TEST FAILED !!! ")
@@ -39,3 +49,13 @@ val sqrList: List[Int] => List[Int] = (list: List[Int]) =>
   assertEquals(sqrList(List(1, 2, 3, -4)), List(1, 4, 9, 16))
   assertEquals(sqrList(List(0, -1, -2, -3)), List(0, 1, 4, 9))
   assertEquals(sqrList(List(5, 0, 0, 7, 7)), List(25, 0, 0, 49, 49))
+
+  assertEquals(isPalindrome(List()), true)
+  assertEquals(isPalindrome(List(())), true)
+  assertEquals(isPalindrome(List(5, 5)),true)
+  assertEquals(isPalindrome(List("a", "l")), false)
+  assertEquals(isPalindrome(List("a", "l", "a")), true)
+  assertEquals(isPalindrome(List("a", "b", "c", "c", "b", "a")), true)
+  assertEquals(isPalindrome(List("a", "b", "c", "d", "c", "b", "a")), true)
+  assertEquals(isPalindrome(List("a", "b", "c", "d", "c", "B", "a")), false)
+  
