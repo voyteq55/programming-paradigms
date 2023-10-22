@@ -1,6 +1,6 @@
 def flatten[A](xss: List[List[A]]): List[A] =
   if xss.isEmpty then List() else
-    xss.head ++ flatten (xss.tail)
+    xss.head ++ flatten(xss.tail)
 
 def count[A](x:A, xs: List[A]): Int =
   if xs.length == 0 then 0 else
