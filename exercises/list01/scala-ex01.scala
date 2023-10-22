@@ -24,6 +24,10 @@ def isPalindrome[A](xs: List[A]): Boolean = {
   xs == reverse(xs)
 }
 
+def listLength[A](xs: List[A]): Int =
+  if xs.isEmpty then 0 else
+    1 + listLength(xs.tail)
+
 @main def ex01: Unit =
   def assertEquals[T](actualResult: T, expectedResult: T) = {
     if actualResult == expectedResult then print(s"TEST PASSED! ") else print(s"!!! TEST FAILED !!! ")
@@ -58,4 +62,8 @@ def isPalindrome[A](xs: List[A]): Boolean = {
   assertEquals(isPalindrome(List("a", "b", "c", "c", "b", "a")), true)
   assertEquals(isPalindrome(List("a", "b", "c", "d", "c", "b", "a")), true)
   assertEquals(isPalindrome(List("a", "b", "c", "d", "c", "B", "a")), false)
-  
+
+  assertEquals(listLength(List()), 0)
+  assertEquals(listLength(List(List(List()), List(), List(), List())), 4)
+  assertEquals(listLength(List(100, 200, 300, 400, 500)), 5)
+  assertEquals(listLength(List("a", "b", "c")), 3)
