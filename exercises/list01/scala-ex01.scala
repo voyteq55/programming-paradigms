@@ -10,6 +10,10 @@ def replicate[A](x: A, n: Int): List[A] =
   if n == 0 then List() else
     x :: replicate(x, n - 1)
 
+val sqrList: List[Int] => List[Int] = (list: List[Int]) =>
+  if list == List() then List() else
+    list.head * list.head :: sqrList(list.tail)
+
 @main def ex01: Unit =
   def assertEquals[T](actualResult: T, expectedResult: T) = {
     if actualResult == expectedResult then print(s"TEST PASSED! ") else print(s"!!! TEST FAILED !!! ")
@@ -30,3 +34,8 @@ def replicate[A](x: A, n: Int): List[A] =
   assertEquals(replicate("aa", 5), List("aa", "aa", "aa", "aa", "aa"))
   assertEquals(replicate(List(), 2), List(List(), List()))
   assertEquals(replicate("aaaaa", 0), List())
+
+  assertEquals(sqrList(List()), List())
+  assertEquals(sqrList(List(1, 2, 3, -4)), List(1, 4, 9, 16))
+  assertEquals(sqrList(List(0, -1, -2, -3)), List(0, 1, 4, 9))
+  assertEquals(sqrList(List(5, 0, 0, 7, 7)), List(25, 0, 0, 49, 49))
