@@ -20,12 +20,12 @@ def insert[T](list: List[T], element: T, index: Int): List[T] =
         if index <= 0 then element :: list else
             list.head :: insert (list.tail, element, index - 1)
 
-def assertEquals[T](actualResult: T, expectedResult: T) = {
-    if actualResult == expectedResult then print(s"TEST PASSED! ") else print(s"!!! TEST FAILED !!! ")
-    println(s"expected result: $expectedResult, actual result: $actualResult")
-}
-
 @main def main = {
+    def assertEquals[T](actualResult: T, expectedResult: T) = {
+        if actualResult == expectedResult then print(s"TEST PASSED! ") else print(s"!!! TEST FAILED !!! ")
+        println(s"expected result: $expectedResult, actual result: $actualResult")
+    }
+
     println("TESTS:")
 
     assertEquals(reverse4 (1, 2, 3, 4), (4, 3, 2, 1))
