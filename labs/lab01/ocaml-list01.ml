@@ -5,14 +5,14 @@ let rec sumProd = function (s, e) ->
     let sumProdResult = sumProd (s + 1, e)
     in (s + fst sumProdResult, s * snd sumProdResult)
 
-let rec sumOfDivisors = function (n, currentDivisor) ->
-  if n <= 1 then 0 else
-    if currentDivisor * currentDivisor > n then 1 else (* adding 1 because dividing starts from 2, every number is divisible by 1*)
-      sumOfDivisors (n, currentDivisor + 1) +
-      (if n mod currentDivisor <> 0 then 0 else 
-        currentDivisor + (if currentDivisor * currentDivisor < n then n / currentDivisor else 0))
-
-let isPerfect = function n -> if n = 0 then false else n = sumOfDivisors (n, 2)
+let isPerfect = 
+  let rec sumOfDivisors = function (n, currentDivisor) ->
+    if n <= 1 then 0 else
+      if currentDivisor * currentDivisor > n then 1 else (* adding 1 because dividing starts from 2, every number is divisible by 1*)
+        sumOfDivisors (n, currentDivisor + 1) +
+        (if n mod currentDivisor <> 0 then 0 else 
+          currentDivisor + (if currentDivisor * currentDivisor < n then n / currentDivisor else 0))
+    in function n -> if n = 0 then false else n = sumOfDivisors (n, 2)
 
 let rec insert = function (list, element, index) ->
   if list = [] then [element] else
