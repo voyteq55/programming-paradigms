@@ -6,14 +6,15 @@ def sumProd(s: Int, e: Int): (Int, Int) =
         (s + sumProdResult._1, s * sumProdResult._2)
     }
 
-def sumOfDivisors(n: Int, currentDivisor: Int): Int =
-    if n <= 1 then 0 else
-    if currentDivisor * currentDivisor > n then 1 else // adding 1 because dividing starts from 2, every number is divisible by 1
-        sumOfDivisors(n, currentDivisor + 1) +
-        (if n % currentDivisor != 0 then 0 else 
-            currentDivisor + (if currentDivisor * currentDivisor < n then n / currentDivisor else 0))
-
-def isPerfect(n: Int) = if n == 0 then false else n == sumOfDivisors(n, 2)
+def isPerfect(n: Int) = if n == 0 then false else {
+    def sumOfDivisors(n: Int, currentDivisor: Int): Int =
+        if n <= 1 then 0 else
+        if currentDivisor * currentDivisor > n then 1 else // adding 1 because dividing starts from 2, every number is divisible by 1
+            sumOfDivisors(n, currentDivisor + 1) +
+            (if n % currentDivisor != 0 then 0 else 
+                currentDivisor + (if currentDivisor * currentDivisor < n then n / currentDivisor else 0))
+    n == sumOfDivisors(n, 2)
+}
 
 def insert[T](list: List[T], element: T, index: Int): List[T] =
     if list == List() then List(element) else
