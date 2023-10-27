@@ -17,7 +17,7 @@ def isPerfect(n: Int) = if n == 0 then false else {
 }
 
 def insert[T](list: List[T], element: T, index: Int): List[T] =
-    if list == List() then List(element) else
+    if list == Nil then List[T](element) else
         if index <= 0 then element :: list else
             list.head :: insert(list.tail, element, index - 1)
 
