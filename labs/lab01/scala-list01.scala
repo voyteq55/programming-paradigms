@@ -25,7 +25,6 @@ def argmax(list: List[Int]) =
     def argmaxIndex(list: List[Int], index: Int): (List[Int], Int) = {
         if list == Nil then (Nil, Int.MinValue) else {
             val tailResult = argmaxIndex(list.tail, index + 1)
-            if list.tail == Nil then (List(index), list.head) else
                 if list.head < tailResult._2 then tailResult else
                     if list.head == tailResult._2 then (index :: tailResult._1, list.head) else
                         (List(index), list.head)
@@ -82,4 +81,5 @@ def argmax(list: List[Int]) =
     assertEquals(argmax(List(5, 1, 1, 2, 5, 3, 5)), List(0, 4, 6))
     assertEquals(argmax(List(1, 5, 1, 7, 3, 7, 2)), List(3, 5))
     assertEquals(argmax(List(-3)), List(0))
+    assertEquals(argmax(List(1, 5, 3, 8, 2, 7, 8, 1)), List(3, 6))
 }

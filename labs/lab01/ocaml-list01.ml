@@ -23,8 +23,7 @@ let argmax = function (list) ->
     let rec argmaxIndex = function (list, index) ->
       if list = [] then ([], Int.min_int) else
         let tailResult = argmaxIndex (List.tl list, index + 1) in
-          let h = List.hd list and t = List.tl list in
-            if t = [] then ([index], h) else
+          let h = List.hd list in
               if h < snd tailResult then tailResult else
                 if h = snd tailResult then (index :: (fst tailResult), h)
                 else ([index], h)
