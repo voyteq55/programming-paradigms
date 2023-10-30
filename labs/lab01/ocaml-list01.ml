@@ -19,6 +19,17 @@ let rec insert = function (list, element, index) ->
     if index <= 0 then element :: list else
       List.hd list :: insert (List.tl list, element, index - 1)
 
+let argmax = function (list) ->
+    let rec argmaxIndex = function (list, index) ->
+      if list = [] then ([], Int.min_int) else
+        let tailResult = argmaxIndex (List.tl list, index + 1) in
+          let h = List.hd list and t = List.tl list in
+            if t = [] then ([index], h) else
+              if h < snd tailResult then tailResult else
+                if h = snd tailResult then (index :: (fst tailResult), h)
+                else ([index], h)
+    in fst (argmaxIndex (list, 0))
+
 (* TESTS *)
 
 let test1_1 = reverse4 (1, 2, 3, 4) = (4, 3, 2, 1)
@@ -52,3 +63,14 @@ let test4_6 = insert ([1; 2; 3; 4], 100, 10) = [1; 2; 3; 4; 100]
 let test4_7 = insert ([], 100, 0) = [100]
 let test4_8 = insert ([], 100, 15) = [100]
 let test4_9 = insert ([], 100, -15) = [100]
+
+let test5_1 = argmax ([]) = []
+let test5_2 = argmax ([1; 1; 1; 1; 1]) = [0; 1; 2; 3; 4]
+let test5_3 = argmax ([5; 4; 3; 2; 1]) = [0]
+let test5_4 = argmax ([4; 3; 2; 1; 5]) = [4]
+let test5_5 = argmax ([1; 2; 3; 4; 5]) = [4]
+let test5_6 = argmax ([1; 2; 5; 3; 4]) = [2]
+let test5_7 = argmax ([5; 1; 1; 2; 5; 3; 5]) = [0; 4; 6]
+let test5_8 = argmax ([2; 5; 1; 7; 3; 7; 2]) = [3; 5]
+let test5_9 = argmax ([-3]) = [0]
+let test5_10 = argmax ([1; 5; 3; 8; 2; 7; 8; 1]) = [3; 6]

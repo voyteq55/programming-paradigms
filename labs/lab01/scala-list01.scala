@@ -21,6 +21,18 @@ def insert[T](list: List[T], element: T, index: Int): List[T] =
         if index <= 0 then element :: list else
             list.head :: insert(list.tail, element, index - 1)
 
+def argmax(list: List[Int]) =
+    def argmaxIndex(list: List[Int], index: Int): (List[Int], Int) = {
+        if list == Nil then (Nil, Int.MinValue) else {
+            val tailResult = argmaxIndex(list.tail, index + 1)
+            if list.tail == Nil then (List(index), list.head) else
+                if list.head < tailResult._2 then tailResult else
+                    if list.head == tailResult._2 then (index :: tailResult._1, list.head) else
+                        (List(index), list.head)
+        }
+    }
+    argmaxIndex(list, 0)._1
+
 @main def main = {
     def assertEquals[T](actualResult: T, expectedResult: T) = {
         if actualResult == expectedResult then print(s"TEST PASSED! ") else print(s"!!! TEST FAILED !!! ")
@@ -60,4 +72,14 @@ def insert[T](list: List[T], element: T, index: Int): List[T] =
     assertEquals(insert(List(), 100, 0), List(100))
     assertEquals(insert(List(), 100, 15), List(100))
     assertEquals(insert(List(), 100, -15), List(100))
+
+    assertEquals(argmax(List()), List())
+    assertEquals(argmax(List(1, 1, 1, 1, 1)), List(0, 1, 2, 3, 4))
+    assertEquals(argmax(List(5, 4, 3, 2, 1)), List(0))
+    assertEquals(argmax(List(4, 3, 2, 1, 5)), List(4))
+    assertEquals(argmax(List(1, 2, 3, 4, 5)), List(4))
+    assertEquals(argmax(List(1, 2, 5, 3, 4)), List(2))
+    assertEquals(argmax(List(5, 1, 1, 2, 5, 3, 5)), List(0, 4, 6))
+    assertEquals(argmax(List(1, 5, 1, 7, 3, 7, 2)), List(3, 5))
+    assertEquals(argmax(List(-3)), List(0))
 }
