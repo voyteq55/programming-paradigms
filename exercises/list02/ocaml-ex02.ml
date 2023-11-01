@@ -16,6 +16,20 @@ let fibTail n =
 let [_; _; x1; _; _] = [-2; -1; 0; 1; 2]
 let [(_, _); (x2, _)] = [(1, 2); (0, 1)]
 
+let accuracy = 10.0 ** -15.0
+let root3 a =
+  let rec root3Rec x_i =
+    if abs_float (x_i ** 3.0 -. a) <= accuracy *. abs_float a then x_i else
+      root3Rec (x_i +. (a /. x_i ** 2.0 -. x_i) /. 3.0)
+  in root3Rec (if a > 1.0 then a /. 3.0 else a)
+
 let test1_1 = fibTail 42
 (* Takes forever: *)
 (* let test1_2 = fib 42 *)
+
+let root3of3 = root3 3.0
+let root3of10 = root3 10.0
+let root3of8 = root3 8.0
+let root3ofNeg1 = root3 (-1.0)
+let root3ofNeg20 = root3 (-20.0)
+let root3of0p6 = root3 0.6
