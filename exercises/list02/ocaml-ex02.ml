@@ -29,6 +29,12 @@ let rec initSegment (xs, ys) =
   | (hx :: tx, hy :: ty) -> hx = hy && initSegment (tx, ty)
   | (_, []) -> false
 
+let rec replaceNth (xs, n, x) =
+  match (xs, n) with
+  | ([], _) -> []
+  | (h :: t, 0) -> x :: t
+  | (h :: t, _) -> h :: replaceNth (t, n - 1, x)
+
 let test1_1 = fibTail 42
 (* Takes forever: *)
 (* let test1_2 = fib 42 *)
@@ -49,3 +55,11 @@ let test5_6 = initSegment ([1; 2; 3], [3; 2; 1]) = false
 let test5_7 = initSegment ([1; 1], [0; 1; 1]) = false
 let test5_8 = initSegment ([1; 2], [1; 1; 2]) = false
 let test5_9 = initSegment ([0; 1; 2], [0; 1; 2; 3; 4; 5; 6]) = true
+
+let test6_1 = replaceNth ([0; 1; 2; 3; 4; 5], 0, 100) = [100; 1; 2; 3; 4; 5]
+let test6_2 = replaceNth ([0; 1; 2; 3; 4; 5], 2, 100) = [0; 1; 100; 3; 4; 5]
+let test6_3 = replaceNth ([0; 1; 2; 3; 4; 5], 4, 100) = [0; 1; 2; 3; 100; 5]
+let test6_4 = replaceNth ([0; 1; 2; 3; 4; 5], 5, 100) = [0; 1; 2; 3; 4; 100]
+let test6_5 = replaceNth ([0; 1; 2; 3; 4; 5], 6, 100) = [0; 1; 2; 3; 4; 5]
+let test6_6 = replaceNth ([0; 1; 2; 3; 4; 5], -3, 100) = [0; 1; 2; 3; 4; 5]
+let test6_7 = replaceNth ([0], 0, 100) = [100]

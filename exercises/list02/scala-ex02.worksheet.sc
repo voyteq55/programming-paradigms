@@ -33,6 +33,12 @@ def initSegment[A](xs: List[A], ys: List[A]): Boolean =
         case (xh :: xt, yh :: yt) => xh == yh && initSegment(xt, yt)
         case (_, List[A]()) => false
 
+def replaceNth[A](xs: List[A], n: Int, x: A): List[A] =
+    (xs, n) match
+        case (List[A](), _) => List[A]()
+        case (h :: t, 0) => x :: t
+        case (h :: t, _) => h :: replaceNth(t, n - 1, x)
+
 fib(42)
 fibTail(42)
 
@@ -52,3 +58,11 @@ initSegment(List(1, 2, 3), List(3, 2, 1))
 initSegment(List(1, 1), List(0, 1, 1))
 initSegment(List(1, 2), List(1, 1, 2))
 initSegment(List(0, 1, 2), List(0, 1, 2, 3, 4, 5, 6))
+
+replaceNth(List(0, 1, 2, 3, 4, 5), 0, 100)
+replaceNth(List(0, 1, 2, 3, 4, 5), 2, 100)
+replaceNth(List(0, 1, 2, 3, 4, 5), 4, 100)
+replaceNth(List(0, 1, 2, 3, 4, 5), 5, 100)
+replaceNth(List(0, 1, 2, 3, 4, 5), 6, 100)
+replaceNth(List(0, 1, 2, 3, 4, 5), -3, 100)
+replaceNth(List(0), 0, 100)
