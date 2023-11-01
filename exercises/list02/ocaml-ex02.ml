@@ -1,16 +1,17 @@
 let rec fib n =
-  match n with
-    | n when n <= 0 -> 0
-    | 1 -> 1
-    | _ -> fib (n - 1) + fib (n - 2)
+  if n <= 0 then 0 else
+    match n with
+      | 0 -> 0
+      | 1 -> 1
+      | _ -> fib (n - 1) + fib (n - 2)
 
 let fibTail n =
-  let rec fibTailRec (n, result, previous) =
-    match n with
-    | n when n <= 0 -> 0
-    | 1 -> result
-    | _ -> fibTailRec (n - 1, result + previous, result)
-  in fibTailRec (n, 1, 0)
+  if n <= 0 then 0 else
+    let rec fibTailRec (n, result, previous) =
+      match n with
+      | 1 -> result
+      | _ -> fibTailRec (n - 1, result + previous, result)
+    in fibTailRec (n, 1, 0)
 
 let [_; _; x1; _; _] = [-2; -1; 0; 1; 2]
 let [(_, _); (x2, _)] = [(1, 2); (0, 1)]
