@@ -27,6 +27,12 @@ def root3(a: Double) =
 val List[Int](_, _, x1, _, _) = List[Int](-2, -1, 0, 1, 2)
 val List[Tuple2[Int, Int]]((_, _), (x2, _)) = List[Tuple2[Int, Int]]((1, 2), (0, 1))
 
+def initSegment[A](xs: List[A], ys: List[A]): Boolean =
+    (xs, ys) match
+        case (List[A](), _) => true
+        case (xh :: xt, yh :: yt) => xh == yh && initSegment(xt, yt)
+        case (_, List[A]()) => false
+
 fib(42)
 fibTail(42)
 
@@ -36,3 +42,13 @@ root3(8)
 root3(-1)
 root3(-20)
 root3(0.6)
+
+initSegment(List(1, 2, 3), List(1, 2, 3, 4))
+initSegment(List(), List(1, 2, 3, 4))
+initSegment(List(), List())
+initSegment(List(1, 2, 3), List())
+initSegment(List(1, 2, 3), List(1, 2))
+initSegment(List(1, 2, 3), List(3, 2, 1))
+initSegment(List(1, 1), List(0, 1, 1))
+initSegment(List(1, 2), List(1, 1, 2))
+initSegment(List(0, 1, 2), List(0, 1, 2, 3, 4, 5, 6))
