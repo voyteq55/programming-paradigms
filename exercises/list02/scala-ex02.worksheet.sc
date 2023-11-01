@@ -24,6 +24,13 @@ def root3(a: Double) =
             root3Rec(x_i + (a / pow(x_i, 2) - x_i) / 3)
     root3Rec(if a > 0 then a / 3 else a)
 
+val root3Function: Double => Double = (a: Double) => {
+    def root3Rec(x_i: Double): Double =
+        if abs(pow(x_i, 3) - a) <= accuracy * abs(a) then x_i else
+            root3Rec(x_i + (a / pow(x_i, 2) - x_i) / 3)
+    root3Rec(if a > 0 then a / 3 else a)
+}
+
 val List[Int](_, _, x1, _, _) = List[Int](-2, -1, 0, 1, 2)
 val List[Tuple2[Int, Int]]((_, _), (x2, _)) = List[Tuple2[Int, Int]]((1, 2), (0, 1))
 
@@ -48,6 +55,13 @@ root3(8)
 root3(-1)
 root3(-20)
 root3(0.6)
+
+root3Function(3)
+root3Function(10)
+root3Function(8)
+root3Function(-1)
+root3Function(-20)
+root3Function(0.6)
 
 initSegment(List(1, 2, 3), List(1, 2, 3, 4))
 initSegment(List(), List(1, 2, 3, 4))
