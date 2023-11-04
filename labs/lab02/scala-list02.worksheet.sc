@@ -10,6 +10,27 @@ def cutAndMend[T](a: Int)(b: Int)(listToCut: List[T]) =
             cutAndMendRec(listToCut, 0)
         case false => List()
 
+def split2Rec[T](listToSplit: List[T]): (List[T], List[T]) =
+    listToSplit match
+        case h1 :: h2 :: t =>
+            val (t1, t2) = split2Rec(t)
+            (h1 :: t1, h2 :: t2)
+        case h :: Nil => (List(h), Nil)
+        case Nil => (Nil, Nil)
+
+def split2Tail[T](listToSplit: List[T]): (List[T], List[T]) =
+    def reverse(listToReverse: List[T]): List[T] =
+        def reverseInner(l: List[T], acc: List[T]): List[T] =
+            l match
+                case Nil => acc
+                case h :: t => reverseInner(t, h :: acc)
+        reverseInner(listToReverse, Nil)
+    def split2TailRecursive(originalList: List[T], acc1: List[T], acc2: List[T]): (List[T], List[T]) =
+        originalList match
+            case Nil => (reverse(acc1), reverse(acc2))
+            case h :: t => split2TailRecursive(t, h :: acc2, acc1)
+    split2TailRecursive(listToSplit, Nil, Nil)
+
 def cutAndMend15 = cutAndMend(1)(5)
 cutAndMend15(List(0, 1, 2, 3, 4, 5, 6, 7))
 cutAndMend15(List(0, 1, 2, 3, 4))
@@ -39,3 +60,14 @@ cutAndMend21(List(0, 1, 2, 3, 4, 5, 6, 7))
 cutAndMend21(List(0, 1, 2, 3, 4))
 cutAndMend21(List(0))
 cutAndMend21(List())
+
+split2Rec(List(0, 1, 2, 3, 4, 5, 6, 7, 8))
+split2Tail(List(0, 1, 2, 3, 4, 5, 6, 7, 8))
+split2Rec(List(0, 1, 2, 3, 4, 5, 6, 7))
+split2Tail(List(0, 1, 2, 3, 4, 5, 6, 7))
+split2Rec(List(0, 1))
+split2Tail(List(0, 1))
+split2Rec(List(0))
+split2Tail(List(0))
+split2Rec(List())
+split2Tail(List())
