@@ -31,6 +31,16 @@ def split2Tail[T](listToSplit: List[T]): (List[T], List[T]) =
             case h :: t => split2TailRecursive(t, h :: acc2, acc1)
     split2TailRecursive(listToSplit, Nil, Nil)
 
+def substituteIfIn[T](inputList: List[T])(substituteList: List[T])(substituteElement: T): List[T] =
+    def isContainedIn(element: T, lst: List[T]): Boolean =
+        lst match
+            case Nil => false
+            case h :: t => (h == element) || isContainedIn(element, t)
+    inputList match
+        case Nil => Nil
+        case h :: t => (if isContainedIn(h, substituteList) then substituteElement else h) :: 
+            substituteIfIn(t)(substituteList)(substituteElement)
+
 def cutAndMend15 = cutAndMend(1)(5)
 cutAndMend15(List(0, 1, 2, 3, 4, 5, 6, 7))
 cutAndMend15(List(0, 1, 2, 3, 4))
@@ -71,3 +81,11 @@ split2Rec(List(0))
 split2Tail(List(0))
 split2Rec(List())
 split2Tail(List())
+
+substituteIfIn(List(1, 2, 3, 4, 5))(List(2, 4))(0)
+substituteIfIn(Nil)(List(1, 2, 3))(100)
+substituteIfIn(List(1, 2, 3, 4, 5))(List(6, 7, 8))(100)
+substituteIfIn(List(1, 2, 1, 3, 1, 4, 1))(List(1))(100)
+substituteIfIn(List(1, 2, 3, 4, 5))(Nil)(100)
+substituteIfIn(List(1, 2, 3, 2, 4, 2, 3, 4, 5, 2, 3))(List(2, 4, 5))(100)
+substituteIfIn(Nil)(Nil)(100)
