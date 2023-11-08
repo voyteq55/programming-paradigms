@@ -22,13 +22,13 @@ def root3(a: Double) =
     def root3Rec(x_i: Double): Double =
         if abs(pow(x_i, 3) - a) <= accuracy * abs(a) then x_i else
             root3Rec(x_i + (a / pow(x_i, 2) - x_i) / 3)
-    root3Rec(if a > 0 then a / 3 else a)
+    root3Rec(if a > 1 then a / 3 else a)
 
 val root3Function: Double => Double = (a: Double) => {
     def root3Rec(x_i: Double): Double =
         if abs(pow(x_i, 3) - a) <= accuracy * abs(a) then x_i else
             root3Rec(x_i + (a / pow(x_i, 2) - x_i) / 3)
-    root3Rec(if a > 0 then a / 3 else a)
+    root3Rec(if a > 1 then a / 3 else a)
 }
 
 val List[Int](_, _, x1, _, _) = List[Int](-2, -1, 0, 1, 2)
