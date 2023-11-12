@@ -1,14 +1,15 @@
 def primes(n: Int) =
     val numbers = List.range(2, n + 1)
     def isPrime(num: Int) =
-        var isPrimeResult = true
-        val possibleDivisors = List.range(2, math.sqrt(num).toInt + 1)
-        for (divisor <- possibleDivisors) {
-            if (num % divisor == 0) isPrimeResult = false
-        }
-        isPrimeResult
+        if (num == 2) then true else
+            val possibleDivisors = 2 :: List.range(3, math.sqrt(num).toInt + 1, 2)
+            val isPrimeResult = for (
+                divisor <- possibleDivisors
+                if (num % divisor == 0)
+            ) yield ()
+            isPrimeResult == Nil
     for (
-        k <- numbers;
+        k <- numbers
         if isPrime(k)
     ) yield k
 
