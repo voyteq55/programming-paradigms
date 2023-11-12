@@ -3,11 +3,11 @@ def primes(n: Int) =
     def isPrime(num: Int) =
         if (num == 2) then true else
             val possibleDivisors = 2 :: List.range(3, math.sqrt(num).toInt + 1, 2)
-            val isPrimeResult = for (
+            val divisors = for (
                 divisor <- possibleDivisors
                 if (num % divisor == 0)
             ) yield ()
-            isPrimeResult == Nil
+            divisors == Nil
     for (
         k <- numbers
         if isPrime(k)
