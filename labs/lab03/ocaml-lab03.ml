@@ -8,6 +8,18 @@ let ( >> ) f n = fun x ->
       in helper (index - 1, element :: acc)
   in helper (n, [])
 
+(* modification *)
+let ( << ) f n = fun x ->
+  let rec helper (index, acc) =
+    if index <= 0 then acc else
+      let element =
+        match acc with
+        | [] -> x - 1
+        | [h] -> f h
+        | h :: _ -> f (h - 1)
+      in helper (index - 1, element :: acc)
+  in helper (n, [])
+
 let six_square_roots = sqrt >> 6
 let six_square_roots_test1 = six_square_roots 6561.
 let six_square_roots_test2 = six_square_roots 256.
@@ -23,3 +35,9 @@ let collatz_test5 = collatz_numbers_from_1000 (-5)
 
 let double_list_test1 = ((fun xs -> xs @ xs) >> 4) ["a"; "b"]
 let double_list_test2 = ((fun xs -> xs @ xs) >> 0) [1; 2; 3]
+
+let double x = 2 * x
+let doubles_minus_one = double << 10
+let doubles_minus_one_test1 = doubles_minus_one 10
+let doubles_minus_one_test2 = doubles_minus_one 0
+let doubles_minus_one_test3 = doubles_minus_one 3
