@@ -17,3 +17,4 @@ val repeatString: (String => String) = s => s + s
 mapTree3(cube)(testTree1)
 mapTree3(repeatString)(testTree2)
 mapTree3(cube)(testTree3)
+mapTree3(x => x.toString())(testTree3)

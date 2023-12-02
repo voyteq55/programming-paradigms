@@ -15,3 +15,4 @@ let cube x = x * x * x
 let cubedTestTree1 = mapTree3 cube testTree1
 let repeatedTestTree2 = mapTree3 repeat testTree2
 let cubedTestTree3 = mapTree3 cube testTree3
+let toStringTestTree3 = mapTree3 (fun x -> string_of_int x) testTree3
