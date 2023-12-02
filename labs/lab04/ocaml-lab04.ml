@@ -88,14 +88,6 @@ let testDrive3 = Drive('E', [
   ])
 ])
 
-let testBFSPathSearch1 = pathBFS testDrive3 ""
-let testBFSPathSearch2 = pathBFS testDrive3 "d1"
-let testBFSPathSearch3 = pathBFS testDrive3 "ghi"
-let testBFSPathSearch4 = pathBFS testDrive3 "d1d1d1"
-let testBFSPathSearch5 = pathBFS testDrive3 "d2file"
-let testBFSPathSearch6 = pathBFS testDrive3 "jkl";;
-let testBFSPathSearch7 = pathBFS testDrive3 "aaa";;
-
 let testDFSPathSearch1 = pathDFS testDrive3 ""
 let testDFSPathSearch2 = pathDFS testDrive3 "d1"
 let testDFSPathSearch3 = pathDFS testDrive3 "ghi"
@@ -103,3 +95,11 @@ let testDFSPathSearch4 = pathDFS testDrive3 "d1d1d1"
 let testDFSPathSearch5 = pathDFS testDrive3 "d2file"
 let testDFSPathSearch6 = pathDFS testDrive3 "jkl";;
 let testDFSPathSearch7 = pathDFS testDrive3 "aaa";;
+
+let testBFSPathSearch1 = pathBFS testDrive3 ""
+let testBFSPathSearch2 = pathBFS testDrive3 "d1"
+let testBFSPathSearch3 = pathBFS testDrive3 "ghi"
+let testBFSPathSearch4 = pathBFS testDrive3 "d1d1d1"
+let testBFSPathSearch5 = pathBFS testDrive3 "d2file"
+let testBFSPathSearch6 = pathBFS testDrive3 "jkl";;
+let testBFSPathSearch7 = pathBFS testDrive3 "aaa";;
