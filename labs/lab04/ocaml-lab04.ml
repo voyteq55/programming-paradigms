@@ -69,6 +69,21 @@ let pathBFS driveToSearch resourceName =
   let Drive(idLetter, rootDir) = driveToSearch 
   in searchPath (resourceListToTupleList (String.make 1 idLetter ^ ":/") rootDir)
 
+let insert driveToInsertInto resourcePathList resource =
+  let rec insertInto currentDirectory pathList res =
+    match pathList with
+    | [] -> res :: currentDirectory
+    | pathListHead :: pathListTail -> 
+      match currentDirectory with
+      | [] -> Directory(pathListHead, insertInto [] pathListTail res) :: currentDirectory
+      | Directory(dirName, resources) :: directoryTail ->
+        if dirName = pathListHead
+          then Directory(dirName, insertInto resources pathListTail res) :: directoryTail
+          else Directory(dirName, resources) :: insertInto directoryTail pathList res
+      | h :: t -> h :: insertInto t pathList res
+  in let Drive(idLetter, rootDir) = driveToInsertInto
+  in Drive (idLetter, insertInto rootDir resourcePathList resource)
+
 let testDrive3 = Drive('E', [
   File("abc");
   File("def");
@@ -103,3 +118,11 @@ let testBFSPathSearch4 = pathBFS testDrive3 "d1d1d1"
 let testBFSPathSearch5 = pathBFS testDrive3 "d2file"
 let testBFSPathSearch6 = pathBFS testDrive3 "jkl";;
 let testBFSPathSearch7 = pathBFS testDrive3 "aaa";;
+
+let newFile = File("NEW_FILE")
+let newDir = Directory("NEW_DIRECTORY", [])
+let testNewDrive1 = insert testDrive3 [] newFile
+let testNewDrive2 = insert testDrive3 ["d1"; "newDir"] newDir
+let testNewDrive3 = insert testDrive3 ["d1"; "d1d1"] newFile
+let testNewDrive4 = insert testDrive3 ["newDirectory"] newDir
+let testNewDrive5 = insert testDrive3 ["new"; "path"; "to"; "file"] newFile

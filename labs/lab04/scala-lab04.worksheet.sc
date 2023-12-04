@@ -23,8 +23,7 @@ sealed trait dataResource
     case class File(name: String) extends dataResource
     case class Directory(name: String, dataResources: List[dataResource]) extends dataResource
 
-sealed trait diskDrive
-    case class Drive(idLetter: Char, dataResources: List[dataResource]) extends diskDrive
+case class Drive(idLetter: Char, dataResources: List[dataResource])
 
 val testDrive1 = Drive('D', Nil)
 val tetsDrive2 = Drive('C', List(
@@ -37,7 +36,7 @@ val tetsDrive2 = Drive('C', List(
     )
 ))
 
-def pathDFS(driveToSearch: diskDrive)(resourceName: String): Option[String] =
+def pathDFS(driveToSearch: Drive)(resourceName: String): Option[String] =
     def searchRelativePath(currentSubDirectory: List[dataResource])(accFilePath: String): Option[String] =
         currentSubDirectory match
             case Nil => None
@@ -54,7 +53,7 @@ def pathDFS(driveToSearch: diskDrive)(resourceName: String): Option[String] =
     val Drive(idLetter, rootDir) = driveToSearch
     searchRelativePath(rootDir)(s"$idLetter:/")
 
-def pathBFS(driveToSearch: diskDrive)(resourceName: String): Option[String] =
+def pathBFS(driveToSearch: Drive)(resourceName: String): Option[String] =
     def resourceListToTupleList(pathName: String)(resourceList: List[dataResource]): List[Tuple2[String, dataResource]] =
         resourceList match
             case Nil => Nil
