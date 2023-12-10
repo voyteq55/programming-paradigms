@@ -12,5 +12,7 @@ def skipTakeL[A](lazyList: LazyList[A]): LazyList[A] =
                         innerSkipTakeL(lazyListTail, initialToSkip, leftToSkip - 1)
     innerSkipTakeL(lazyList, 0, 0)
     
+skipTakeL(LazyList())
+skipTakeL(LazyList.cons(-1, LazyList.cons(-2, LazyList.cons(-3, LazyList.cons(-4, LazyList()))))).toList
 skipTakeL(finiteNumbers).toList
 skipTakeL(infiniteNumbers).take(15).toList
