@@ -17,3 +17,28 @@ declaracci(2, 6)
 declaracci(4, 10)
 declaracci(2, 0)
 declaracci(0, 10)
+
+def imperacci(m: Int, n: Int): Array[Int] =
+    if m >= 1 then  
+        val skiponacciSequence = new Array[Int](n)
+        var previousValue = 0
+        var currentValue = 1
+        var index = 0
+        var skiponacciDegree = 2 * (m - 1)
+        while index < n do
+            if skiponacciDegree == 0 then
+                skiponacciSequence(index) = currentValue
+                index = index + 1
+            else
+                skiponacciDegree = skiponacciDegree - 1
+            currentValue = previousValue + currentValue
+            previousValue = currentValue - previousValue
+        skiponacciSequence
+    else
+        new Array[Int](0)
+
+imperacci(1, 10).toList
+imperacci(2, 6).toList
+imperacci(4, 10).toList
+imperacci(2, 0).toList
+imperacci(0, 6).toList
