@@ -12,11 +12,30 @@ def declaracci(m: Int, n: Int): List[Int] =
             innerDeclaracciLazy(lowerSkiponacci)
     if m >= 1 then declaracciLazy(m).take(n).toList else Nil
 
+def declaracci2(m: Int, n: Int): List[Int] =
+    def declaracciLazy(m: Int): LazyList[Int] =
+        def fibonacciLazy(): LazyList[Int] =
+            def innerFibLazy(firstValue: Int, secondValue: Int): LazyList[Int] =
+                firstValue #:: innerFibLazy(secondValue, firstValue + secondValue)
+            innerFibLazy(1, 1)
+        def innerDeclaracciLazy(degree: Int, skiponacci: LazyList[Int]): LazyList[Int] = 
+            if degree == 1 then skiponacci else
+                skiponacci match
+                    case _ #:: _ #:: tail => innerDeclaracciLazy(degree - 1, tail)
+        innerDeclaracciLazy(m, fibonacciLazy())
+    if m >= 1 then declaracciLazy(m).take(n).toList else Nil
+
 declaracci(1, 10)
 declaracci(2, 6)
 declaracci(4, 10)
 declaracci(2, 0)
 declaracci(0, 10)
+
+declaracci2(1, 10)
+declaracci2(2, 6)
+declaracci2(4, 10)
+declaracci2(2, 0)
+declaracci2(0, 10)
 
 def imperacci(m: Int, n: Int): Array[Int] =
     if m >= 1 then  
