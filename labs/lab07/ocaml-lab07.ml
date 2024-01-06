@@ -1,8 +1,7 @@
-type instruction = Rst | LoadF of float | LoadI of int | Cpy | Add | Sub | Mul | Div
-
 module StackMachine =
 struct
   type t = {mutable l: float list}
+  type instruction = Rst | LoadF of float | LoadI of int | Cpy | Add | Sub | Mul | Div
   exception DivisionByZero of string
   exception TooFewArguments of string
 
@@ -19,11 +18,16 @@ struct
     | h :: t -> stack.l <- h :: stack.l
     | [] -> raise (TooFewArguments "Stack is empty, no element can be copied")
 
+  let checkForTooFewArgumentsForBinaryOperationException stack =
+    match stack.l with
+    | _ :: [] -> raise (TooFewArguments "One argument missing")
+    | [] -> raise (TooFewArguments "Stack is empty, operation cannot be performed")
+    | _ -> ()
+
   let binaryOperation stack operation =
     match stack.l with
     | el1 :: el2 :: t -> stack.l <- (operation el1 el2) :: t
-    | _ :: [] -> raise (TooFewArguments "One argument missing")
-    | [] -> raise (TooFewArguments "Stack is empty, operation cannot be performed")
+    | _ -> checkForTooFewArgumentsForBinaryOperationException stack
 
   let result stack =
     match stack.l with
@@ -40,7 +44,10 @@ struct
       | Add -> binaryOperation stack ( +. )
       | Sub -> binaryOperation stack ( -. )
       | Mul -> binaryOperation stack ( *. )
-      | Div -> if List.hd (List.tl stack.l) = 0. then raise (DivisionByZero "Cannot divide by 0") else binaryOperation stack ( /. )
+      | Div -> (
+          checkForTooFewArgumentsForBinaryOperationException stack;
+          if List.hd (List.tl stack.l) = 0. then raise (DivisionByZero "Cannot divide by 0") else binaryOperation stack ( /. )
+        )
     in
     match instructions with
     | currentInstruction :: restOfInstructions -> (
@@ -53,6 +60,7 @@ end
 module type COPROCESSOR =
 sig
   type t
+  type instruction = Rst | LoadF of float | LoadI of int | Cpy | Add | Sub | Mul | Div
   exception DivisionByZero of string
   exception TooFewArguments of string
   val init: unit -> t
@@ -73,4 +81,5 @@ let testResult2 = Coprocessor.result testStack
 (* let _ = Coprocessor.execute testStack [Rst; Cpy] *)
 (* let _ = Coprocessor.execute testStack [Rst; LoadF 5.; Mul] *)
 (* let _ = Coprocessor.execute testStack [Rst; LoadI 0; LoadI 1; Div] *)
+(* let _ = Coprocessor.execute testStack [Rst; Div] *)
 let testResult3 = Coprocessor.result testStack
