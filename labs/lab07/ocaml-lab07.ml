@@ -1,7 +1,8 @@
 module StackMachine =
 struct
-  type t = {mutable l: float list}
+  type t = {mutable l : float list}
   type instruction = Rst | LoadF of float | LoadI of int | Cpy | Add | Sub | Mul | Div
+
   exception DivisionByZero of string
   exception TooFewArguments of string
 
@@ -61,8 +62,10 @@ module type COPROCESSOR =
 sig
   type t
   type instruction = Rst | LoadF of float | LoadI of int | Cpy | Add | Sub | Mul | Div
+
   exception DivisionByZero of string
   exception TooFewArguments of string
+  
   val init: unit -> t
   val result: t -> float
   val execute: t -> instruction list -> unit
