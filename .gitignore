@@ -7,3 +7,9 @@
 # ocaml
 _build
 *.opam
+
+# java
+
+.idea/
+**/out/
+*.iml
