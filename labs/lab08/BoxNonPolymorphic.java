@@ -48,6 +48,10 @@ public class BoxNonPolymorphic {
             double cubeSideLength = shapeParameters[0] * 2 / Math.sqrt(3);
             return new double[]{cubeSideLength, cubeSideLength, cubeSideLength};
         }
+        if (shape == BoxShape.CONE) {
+            double cuboidBaseLength = 2 * Math.sqrt(2) * shapeParameters[0] / 3;
+            return new double[]{cuboidBaseLength, cuboidBaseLength, shapeParameters[1] / 3};
+        }
         throw new IllegalStateException("Unsupported box shape");
     }
 
@@ -61,6 +65,9 @@ public class BoxNonPolymorphic {
         if (shape == BoxShape.SPHERE) {
             double cubeSideLength = shapeParameters[0] * 2;
             return new double[]{cubeSideLength, cubeSideLength, cubeSideLength};
+        }
+        if (shape == BoxShape.CONE) {
+            return new double[]{shapeParameters[0] * 2, shapeParameters[0] * 2, shapeParameters[1]};
         }
         throw new IllegalStateException("Unsupported box shape");
     }
@@ -87,6 +94,9 @@ public class BoxNonPolymorphic {
         }
         if (shape == BoxShape.SPHERE) {
             return String.format("Sphere with radius: %f", shapeParameters[0]);
+        }
+        if (shape == BoxShape.CONE) {
+            return String.format("Cone with base radius: %f and height: %f", shapeParameters[0], shapeParameters[1]);
         }
         return "Unsupported box shape";
     }

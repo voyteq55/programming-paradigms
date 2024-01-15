@@ -1,5 +1,6 @@
 public enum BoxShape {
     CUBOID,
     CYLINDER,
-    SPHERE
+    SPHERE,
+    CONE
 }
