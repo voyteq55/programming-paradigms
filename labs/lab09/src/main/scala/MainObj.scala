@@ -16,9 +16,21 @@ object MainObj:
     val splitter = new Splitter(40)
     splitter(r1)
     splitter(r2)
-    splitter(new Rectangle(10))
-    splitter(new Rectangle(2, 15))
+    val r3 = new Rectangle(10)
+    val r4 = new Rectangle(2, 15)
+    splitter(r3)
+    splitter(r4)
     splitter.printSmallFigures()
     splitter.printLargeFigures()
 
     // val invalidSplitter = Splitter(-1)
+
+    val fineSplitter = new FineSplitter(40, 35, 45)
+    fineSplitter(r1)
+    fineSplitter(r2)
+    fineSplitter(r3)
+    fineSplitter(r4)
+
+    fineSplitter.printSmallFigures()
+    fineSplitter.printLargeFigures()
+    fineSplitter.printMiddleFigures()
